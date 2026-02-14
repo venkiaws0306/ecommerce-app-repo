@@ -82,7 +82,3 @@ LoadBalancer URL → Live Application
 ---
 
 
-
-Happy Learning & Automating! 🚀
-
-— **Kastro Kiran**
