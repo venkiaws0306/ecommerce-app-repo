@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = "venkiaws/E-commerce-py-app"
+        IMAGE_NAME = "venkiaws/ecommerce-app-mulibranch"
         GIT_USER   = "venkiaws0306"
         GIT_EMAIL  = "venkiaws09@gmail.com"
     }
