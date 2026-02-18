@@ -54,7 +54,7 @@ pipeline {
                         set -e
                         git config user.name "$GIT_USER"
                         git config user.email "$GIT_EMAIL"
-                        sed -i 's|image:.*|image: ${IMAGE_NAME}:${IMAG_TAG}|' k8s/deployment.yml
+                        sed -i.bak "s|image:.*|image: ${IMAGE_NAME}:${IMAGE_TAG}|" k8s/deployment.yml
                         git add k8s/deployment.yml
                         git diff --cached --quiet || git commit -m "Update image to ${IMAG_TAG}"
                         git push https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/venkiaws0306/ecommerce-app-repo.git main
