@@ -24,7 +24,7 @@ pipeline {
             when { branch 'main' }
             steps {
                 script {
-                    env.IMAG_TAG = "build-${BUILD_NUMBER}"
+                    env.IMAGE_TAG = "build-${BUILD_NUMBER}"
                 }
 
                 withCredentials([usernamePassword(
@@ -33,9 +33,9 @@ pipeline {
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
                     sh """
-                    docker build -t ${IMAGE_NAME}:${IMAG_TAG} .
+                    docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
                     echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                    docker push ${IMAGE_NAME}:${IMAG_TAG}
+                    docker push ${IMAGE_NAME}:${IMAGE_TAG}
                     """
                 }
             }
@@ -54,9 +54,9 @@ pipeline {
                         set -e
                         git config user.name "$GIT_USER"
                         git config user.email "$GIT_EMAIL"
-                        sed -i.bak "s|image:.*|image: ${IMAGE_NAME}:${IMAGE_TAG}|" k8s/deployment.yaml
+                        sed -i 's|image:.*|image: venkiaws/ecommerce-app-mulibranch:${IMAGE_TAG}|' k8s/deployment.yaml
                         git add k8s/deployment.yml
-                        git diff --cached --quiet || git commit -m "Update image to ${IMAG_TAG}"
+                        git diff --cached --quiet || git commit -m "Update image to ${IMAGE_TAG}"
                         git push https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/venkiaws0306/ecommerce-app-repo.git main
                         """
                     }
