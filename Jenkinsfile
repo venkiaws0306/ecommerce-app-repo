@@ -55,7 +55,7 @@ pipeline {
                         git config user.name "$GIT_USER"
                         git config user.email "$GIT_EMAIL"
                         sed -i 's|image:.*|image: venkiaws/ecommerce-app-mulibranch:${IMAGE_TAG}|' k8s/deployment.yaml
-                        git add k8s/deployment.yml
+                        git add k8s/deployment.yaml
                         git diff --cached --quiet || git commit -m "Update image to ${IMAGE_TAG}"
                         git push https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/venkiaws0306/ecommerce-app-repo.git main
                         """
